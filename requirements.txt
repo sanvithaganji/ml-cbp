@@ -1,0 +1,23 @@
+# Core ML and Numerical Computing
+torch>=2.2.0
+torchvision>=0.17.0
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.11.0
+scikit-learn>=1.4.0
+
+# Image Processing and Visualization
+pillow>=10.0.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Interactive Dashboard and Web App
+streamlit>=1.32.0
+plotly>=5.19.0
+
+# Utilities and Persistence
+pyyaml>=6.0.1
+joblib>=1.3.0
+tqdm>=4.66.0
+requests>=2.31.0
+pytest>=8.0.0

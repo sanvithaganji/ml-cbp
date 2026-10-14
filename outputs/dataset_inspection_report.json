@@ -1,0 +1,87 @@
+{
+  "is_valid": true,
+  "total_records": 300,
+  "issues": [],
+  "warnings": [],
+  "summary": {
+    "class_distribution": {
+      "Anthracnose": 173,
+      "Healthy": 87,
+      "Leaf Spot": 40
+    },
+    "class_proportions": {
+      "Anthracnose": 0.5767,
+      "Healthy": 0.29,
+      "Leaf Spot": 0.1333
+    },
+    "sensor_stats": {
+      "ambient_temperature": {
+        "missing": 0,
+        "out_of_bounds": 0,
+        "min": 18.0,
+        "max": 34.11,
+        "mean": 26.77,
+        "std": 3.11,
+        "expected_range": [
+          5.0,
+          50.0
+        ]
+      },
+      "soil_temperature": {
+        "missing": 0,
+        "out_of_bounds": 0,
+        "min": 17.0,
+        "max": 32.0,
+        "mean": 24.61,
+        "std": 2.88,
+        "expected_range": [
+          5.0,
+          45.0
+        ]
+      },
+      "humidity": {
+        "missing": 0,
+        "out_of_bounds": 0,
+        "min": 33.44,
+        "max": 98.0,
+        "mean": 74.72,
+        "std": 16.48,
+        "expected_range": [
+          10.0,
+          100.0
+        ]
+      },
+      "soil_moisture": {
+        "missing": 0,
+        "out_of_bounds": 0,
+        "min": 20.0,
+        "max": 91.38,
+        "mean": 58.94,
+        "std": 14.24,
+        "expected_range": [
+          0.0,
+          100.0
+        ]
+      },
+      "leaf_wetness": {
+        "missing": 0,
+        "out_of_bounds": 0,
+        "min": 0.01,
+        "max": 14.61,
+        "mean": 5.8,
+        "std": 3.86,
+        "expected_range": [
+          0.0,
+          24.0
+        ]
+      }
+    },
+    "pairing_metadata": {
+      "has_plant_id": true,
+      "has_timestamp": true,
+      "has_batch_id": false,
+      "grouping_column_available": true,
+      "granularity": "plant-level / timestamped"
+    }
+  }
+}

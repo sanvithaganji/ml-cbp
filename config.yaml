@@ -1,0 +1,113 @@
+# ==============================================================================
+# Configuration: Early Crop Disease Detection Using Multimodal Fusion
+# ==============================================================================
+
+project:
+  name: "crop-disease-fusion"
+  title: "Early Crop Disease Detection Using Multimodal Fusion"
+  version: "1.0.0"
+  random_seed: 42
+  target_crop: "Jamun (Syzygium cumini)"
+
+classes:
+  names:
+    - "Healthy"
+    - "Anthracnose"
+    - "Leaf Spot"
+  num_classes: 3
+  mapping:
+    Healthy: 0
+    Anthracnose: 1
+    Leaf Spot: 2
+
+environmental_features:
+  names:
+    - "ambient_temperature"  # Celsius (°C)
+    - "soil_temperature"     # Celsius (°C)
+    - "humidity"             # Relative Humidity (%)
+    - "soil_moisture"        # Volumetric Moisture Content (%)
+    - "leaf_wetness"         # Leaf-wetness duration (hours)
+  units:
+    ambient_temperature: "°C"
+    soil_temperature: "°C"
+    humidity: "%"
+    soil_moisture: "%"
+    leaf_wetness: "hours"
+  bounds:
+    ambient_temperature: [5.0, 50.0]
+    soil_temperature: [5.0, 45.0]
+    humidity: [10.0, 100.0]
+    soil_moisture: [0.0, 100.0]
+    leaf_wetness: [0.0, 24.0]
+
+paths:
+  data_dir: "data"
+  raw_images_dir: "data/images"
+  metadata_file: "data/metadata.csv"
+  checkpoints_dir: "models/checkpoints"
+  preprocessor_dir: "models/preprocessors"
+  outputs_dir: "outputs"
+  metrics_dir: "outputs/metrics"
+  plots_dir: "outputs/plots"
+  db_path: "outputs/predictions_history.db"
+
+data_split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  group_by_plant: true  # Group split by plant_id or batch_id when available to prevent data leakage
+
+training:
+  batch_size: 16
+  num_workers: 0  # Safe default on macOS/MPS
+  device: "auto"   # "auto" detects MPS -> CUDA -> CPU
+  
+  image_model:
+    backbone: "efficientnet_b0"
+    pretrained: true
+    input_size: 224
+    learning_rate: 0.0003
+    weight_decay: 0.0001
+    epochs: 15
+    early_stopping_patience: 4
+    use_class_weights: true
+
+  sensor_rf:
+    n_estimators: 120
+    max_depth: 8
+    random_state: 42
+    class_weight: "balanced"
+
+  sensor_mlp:
+    hidden_dims: [64, 32]
+    dropout: 0.2
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    epochs: 30
+    early_stopping_patience: 6
+
+  multimodal_fusion:
+    backbone: "efficientnet_b0"
+    pretrained: true
+    image_embed_dim: 128
+    sensor_hidden_dims: [64, 32]
+    sensor_embed_dim: 32
+    fusion_hidden_dim: 64
+    dropout: 0.3
+    backbone_lr: 0.00005
+    head_lr: 0.0005
+    weight_decay: 0.0001
+    epochs: 15
+    early_stopping_patience: 4
+
+  late_fusion:
+    image_weight: 0.80
+    sensor_weight: 0.20
+
+risk_model:
+  anthracnose_temp_range: [24.0, 32.0]
+  anthracnose_humidity_threshold: 80.0
+  anthracnose_leaf_wetness_threshold: 6.0
+  leaf_spot_temp_range: [20.0, 30.0]
+  leaf_spot_humidity_threshold: 75.0
+  leaf_spot_leaf_wetness_threshold: 4.0

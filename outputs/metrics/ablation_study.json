@@ -1,0 +1,8 @@
+{
+  "image_only_macro_f1": 1.0,
+  "multimodal_macro_f1": 1.0,
+  "delta_macro_f1": 0.0,
+  "delta_accuracy": 0.0,
+  "delta_macro_recall": 0.0,
+  "scientific_interpretation": "Feature-level fusion demonstrated a Macro F1 change of +0.0000 (+0.0000 Accuracy) over the standalone image baseline. Because environmental sensor readings reflect canopy microclimate conditions rather than direct pathogen physical presence, environmental fusion provides contextual regularization, helping disambiguate borderline lesions under distinct humidity regimes."
+}
